@@ -372,7 +372,7 @@
 
     <script>
         // رابط الويب أب الخاص بك
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw0dhlBwyZdBISBEkvGStYEh5Lz90ZkBhN5do992gIzsMsAd026u-sdy1-RjCVitfidKw/exec';
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwm7X8G7QjnwJlUXVfbdFEDK7hQ74xfj8-rWQV_xVyx9oYhn3_ChRqqmLFgJsraCqolEA/exec';
 
         // عناصر DOM
         const form = document.getElementById('registrationForm');
@@ -420,8 +420,7 @@
                 projectDescription: formData.get('projectDescription'),
                 experience: formData.get('experience'),
                 expectations: formData.get('expectations'),
-                source: formData.get('source'),
-                timestamp: new Date().toLocaleString('ar-SA')
+                source: formData.get('source')
             };
 
             // جمع المهارات المختارة
@@ -441,14 +440,18 @@
                     body: JSON.stringify(data)
                 });
 
-                const result = await response.text();
+                const result = await response.json();
                 console.log('Response:', result);
                 
-                showSuccess();
-                form.reset();
-                // إعادة تعيين الحقول المخفية
-                projectSection.style.display = 'none';
-                workshopField.style.display = 'none';
+                if (result.success) {
+                    showSuccess();
+                    form.reset();
+                    // إعادة تعيين الحقول المخفية
+                    projectSection.style.display = 'none';
+                    workshopField.style.display = 'none';
+                } else {
+                    throw new Error(result.message);
+                }
                 
             } catch (error) {
                 console.error('Error:', error);
