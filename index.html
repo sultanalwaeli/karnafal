@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل في كرنفال جيل ألفا</title>
+    <title>كرنفال جيل ألفا - ثورة التعليم المستقبلي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
         :root {
-            --primary-blue: #00A8E8;
-            --primary-yellow: #FFD166;
-            --primary-red: #EF476F;
-            --accent-purple: #9D4EDD;
-            --dark-bg: #1A1A2E;
-            --light-bg: #F8F9FA;
-            --text-dark: #2D3748;
-            --text-light: #4A5568;
+            --primary-blue: #00A8E8;    /* الأزرق الأساسي من الشعار */
+            --primary-yellow: #FFD166;  /* الأصفر من الشعار */
+            --primary-red: #EF476F;     /* الأحمر من الشعار */
+            --accent-purple: #9D4EDD;   /* البنفسجي التكميلي */
+            --dark-bg: #1A1A2E;         /* الخلفية الداكنة */
+            --light-bg: #F8F9FA;        /* الخلفية الفاتحة */
+            --text-dark: #2D3748;       /* النص الداكن */
+            --text-light: #4A5568;      /* النص الفاتح */
             --white: #FFFFFF;
         }
 
@@ -21,489 +24,1321 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
         }
 
         body {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            background: var(--light-bg);
             color: var(--text-dark);
+            line-height: 1.7;
+            overflow-x: hidden;
+            font-weight: 400;
+        }
+
+        /* أنماط الخلفية المستوحاة من الشعار */
+        .logo-pattern-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: -1;
+            background-image: 
+                /* دوائر مستوحاة من الشعار */
+                radial-gradient(circle at 20% 20%, var(--primary-blue) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, var(--primary-yellow) 0%, transparent 50%),
+                radial-gradient(circle at 40% 70%, var(--primary-red) 0%, transparent 50%),
+                /* خطوط مائلة مستوحاة من الشعار */
+                linear-gradient(45deg, transparent 30%, var(--primary-blue) 30%, var(--primary-blue) 35%, transparent 35%),
+                linear-gradient(-45deg, transparent 30%, var(--primary-yellow) 30%, var(--primary-yellow) 35%, transparent 35%),
+                linear-gradient(135deg, transparent 65%, var(--primary-red) 65%, var(--primary-red) 70%, transparent 70%);
+            background-size: 400px 400px, 300px 300px, 350px 350px, 200px 200px, 200px 200px, 200px 200px;
+            animation: patternFloat 20s linear infinite;
+        }
+
+        @keyframes patternFloat {
+            0% { background-position: 0 0, 100px 50px, 200px 100px, 0 0, 50px 100px, 100px 200px; }
+            100% { background-position: 400px 400px, 400px 450px, 550px 450px, 200px 200px, 250px 300px, 300px 400px; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-k {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
             line-height: 1.6;
-            min-height: 100vh;
+            font-weight: 400;
+        }
+
+        /* الهيدر */
+        .slanted-ribbon {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow), var(--primary-blue));
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(248, 249, 250, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 1px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 85px;
+        }
+
+        .logo {
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 2rem;
+            gap: 1rem;
         }
 
-        .registration-container {
-            max-width: 800px;
-            width: 100%;
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+        .logo img {
+            height: 55px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+            transition: all 0.4s ease;
         }
 
-        .registration-header {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
-            color: var(--white);
-            padding: 2rem;
-            text-align: center;
+        .logo:hover img {
+            transform: scale(1.08);
         }
 
-        .registration-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            font-weight: 800;
+        nav {
+            display: flex;
+            gap: 2.5rem;
         }
 
-        .registration-header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .registration-body {
-            padding: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
+        nav a {
+            text-decoration: none;
+            color: var(--text-light);
             font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .required::after {
-            content: " *";
-            color: var(--primary-red);
-        }
-
-        input, select, textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: var(--white);
+            padding: 0.5rem 0;
+            position: relative;
         }
 
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(0, 168, 232, 0.1);
+        nav a:hover {
+            color: var(--primary-blue);
             transform: translateY(-2px);
         }
 
-        .submit-btn {
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow), var(--primary-blue));
+            transition: width 0.4s ease;
+            border-radius: 2px;
+        }
+
+        nav a:hover::after {
             width: 100%;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
             color: var(--white);
             padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 6px 20px rgba(0, 168, 232, 0.4);
+            transition: all 0.4s ease;
             border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 168, 232, 0.4);
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 168, 232, 0.6);
         }
 
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .message {
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 1rem;
-            text-align: center;
-            display: none;
-            font-weight: 600;
-        }
-
-        .success-message {
-            background: #d1fae5;
-            color: #065f46;
-            border: 2px solid #a7f3d0;
-        }
-
-        .error-message {
-            background: #fee2e2;
-            color: #991b1b;
-            border: 2px solid #fecaca;
-        }
-
-        .loading-message {
-            background: #dbeafe;
-            color: #1e40af;
-            border: 2px solid #93c5fd;
-        }
-
-        .form-section {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: #f8fafc;
-            border-radius: 15px;
-            border-left: 4px solid var(--primary-blue);
-        }
-
-        .form-section h3 {
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .checkbox-group {
+        /* الهيرو */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, 
+                rgba(0, 168, 232, 0.08) 0%, 
+                rgba(255, 209, 102, 0.06) 50%, 
+                rgba(239, 71, 111, 0.04) 100%);
+            overflow: hidden;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
         }
 
-        .checkbox-group input {
-            width: auto;
-        }
-
-        .skills-container {
+        .hero-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 0.5rem;
-            margin-top: 0.5rem;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
+        .hero-text {
+            position: relative;
+        }
+
+        .hero-logo-container {
+            position: relative;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .logo-main {
+            height: 120px;
+            filter: drop-shadow(0 8px 25px rgba(0,0,0,0.2));
+            transition: all 0.5s ease;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .highlight {
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline;
+            text-shadow: 0 2px 10px rgba(0,168,232,0.3);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+            justify-content: center;
+        }
+
+        .secondary-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            border: 3px solid transparent;
+            background: linear-gradient(135deg, var(--primary-yellow), var(--primary-red));
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(239, 71, 111, 0.3);
+        }
+
+        .secondary-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(239, 71, 111, 0.5);
+        }
+
+        .hero-visual {
+            position: relative;
+            text-align: center;
+        }
+
+        .logo-3d-container {
+            position: relative;
+            display: inline-block;
+            perspective: 1000px;
+        }
+
+        .logo-3d {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 25px;
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.15),
+                0 0 0 1px rgba(255,255,255,0.1);
+            transition: all 0.6s ease;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.2));
+        }
+
+        .logo-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+            box-shadow: 
+                0 35px 70px rgba(0,0,0,0.25),
+                0 0 0 1px rgba(255,255,255,0.2);
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            animation: floatShape 6s ease-in-out infinite;
+            opacity: 0.1;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 2s;
+            background: linear-gradient(135deg, var(--primary-yellow), var(--primary-red));
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            right: 5%;
+            animation-delay: 4s;
+        }
+
+        @keyframes floatShape {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* العد التنازلي */
+        .countdown {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+
+        .countdown-item {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(20px);
+            min-width: 110px;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.1),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow), var(--primary-blue));
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.15),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            margin-bottom: 0.7rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* البطاقات */
+        .brand-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 25px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 15px 35px rgba(0,0,0,0.08),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+            transition: all 0.5s ease;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow), var(--primary-blue));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .brand-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .brand-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 
+                0 25px 50px rgba(0,0,0,0.15),
+                inset 0 1px 0 rgba(255,255,255,0.6);
+            border-color: rgba(0, 168, 232, 0.3);
+        }
+
+        /* الأجيال */
+        .generations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+
+        .generation-card {
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .generation-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 168, 232, 0.4);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .generation-card:hover .generation-icon {
+            transform: scale(1.1) rotate(10deg);
+            box-shadow: 0 12px 30px rgba(0, 168, 232, 0.6);
+        }
+
+        .generation-name {
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 0.7rem;
+            line-height: 1.3;
+        }
+
+        .generation-years {
+            font-size: 1rem;
+            color: var(--primary-red);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-yellow), var(--primary-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .generation-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        /* المميزات */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            height: 100%;
+            position: relative;
+        }
+
+        .feature-icon-container {
+            background: var(--white);
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            border-radius: 18px;
+            padding: 1.2rem;
+            flex-shrink: 0;
+            box-shadow: 
+                0 8px 20px rgba(0,0,0,0.1),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .feature-icon-container::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 21px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon-container::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover .feature-icon-container {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .feature-icon {
+            color: var(--primary-blue);
+            font-size: 1.6rem;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            color: var(--white);
+        }
+
+        .feature-content h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            line-height: 1.3;
+        }
+
+        .feature-content p {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* الورش */
+        .workshops-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .workshop-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-blue);
+            text-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+        }
+
+        .brand-card:hover .workshop-icon {
+            transform: scale(1.2) rotate(10deg);
+            color: var(--accent-purple);
+        }
+
+        .workshop-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .workshop-desc {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .workshop-features {
+            list-style: none;
+        }
+
+        .workshop-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+
+        .workshop-features li:hover {
+            color: var(--primary-blue);
+            transform: translateX(5px);
+        }
+
+        .workshop-features li::before {
+            content: "✦";
+            color: var(--primary-blue);
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .workshop-features li:hover::before {
+            color: var(--primary-red);
+            transform: scale(1.3);
+        }
+
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: var(--white);
+            text-align: center;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: ctaFloat 10s ease-in-out infinite;
+        }
+
+        @keyframes ctaFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+
+        .cta-section h2 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .cta-section p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            font-weight: 400;
+            line-height: 1.5;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+        }
+
+        .cta-large {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--white);
+            color: var(--primary-blue);
+            padding: 1.5rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+            text-shadow: none;
+        }
+
+        .cta-large:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            background: #f8fafc;
+        }
+
+        /* الفوتر */
+        footer {
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #2A2A4A 100%);
+            color: var(--white);
+            padding: 5rem 0 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow), var(--primary-blue));
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+
+        .footer-logo img {
+            height: 70px;
+            filter: brightness(0) invert(1) drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            opacity: 0.9;
+            transition: all 0.4s ease;
+        }
+
+        .footer-logo:hover img {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .footer-school {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            opacity: 0.9;
+            font-weight: 600;
+        }
+
+        .footer-motto {
+            opacity: 0.7;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            opacity: 0.7;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            font-weight: 500;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .copyright {
+            opacity: 0.5;
+            font-size: 0.95rem;
+            font-weight: 400;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        /* التجاوب */
         @media (max-width: 768px) {
-            body {
-                padding: 1rem;
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
             }
-            
-            .registration-header h1 {
-                font-size: 2rem;
+
+            .hero-text h1 {
+                font-size: 2.8rem;
             }
-            
-            .registration-body {
-                padding: 1.5rem;
+
+            .logo-main {
+                height: 90px;
             }
-            
-            .skills-container {
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2.3rem;
+            }
+
+            .generations-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .features-grid {
                 grid-template-columns: 1fr;
             }
+
+            .workshops-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .countdown {
+                gap: 1rem;
+            }
+
+            .countdown-item {
+                min-width: 90px;
+                padding: 1.2rem;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* تحسينات النص */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+
+        p {
+            color: var(--text-light);
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* شريط الفاصل المخصص */
+        .custom-divider {
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-red), var(--primary-yellow), var(--primary-blue));
+            margin: 4rem 0;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .custom-divider::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--light-bg);
+            color: var(--primary-blue);
+            padding: 0 1rem;
+            font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
-    <div class="registration-container">
-        <div class="registration-header">
-            <h1>🎪 سجل في كرنفال جيل ألفا</h1>
-            <p>انضم إلى رحلة التعليم المستقبلي وكن جزءاً من الثورة التقنية</p>
+    <!-- خلفية مستوحاة من الشعار -->
+    <div class="logo-pattern-bg"></div>
+
+    <!-- الشريط العلوي -->
+    <div class="slanted-ribbon"></div>
+
+    <!-- الهيدر -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://d.top4top.io/p_3577z29101.png" alt="كرنفال جيل ألفا">
+                </div>
+                <nav>
+                    <a href="#about">عن الفكرة</a>
+                    <a href="#generations">من هم جيل ألفا؟</a>
+                    <a href="#workshops">الورش التفاعلية</a>
+                    <a href="#timeline">الجدول الزمني</a>
+                    <a href="#identity">هويتنا البصرية</a>
+                </nav>
+                <a href="#cta" class="cta-button">
+                    سجل الآن
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
         </div>
+    </header>
 
-        <div class="registration-body">
-            <div id="successMessage" class="message success-message">
-                🎉 تم التسجيل بنجاح! سنتواصل معك قريباً عبر البريد الإلكتروني.
-            </div>
-
-            <div id="errorMessage" class="message error-message">
-                ❌ حدث خطأ في التسجيل. يرجى المحاولة مرة أخرى أو التواصل معنا.
-            </div>
-
-            <div id="loadingMessage" class="message loading-message">
-                ⏳ جاري معالجة طلبك... يرجى الانتظار
-            </div>
-
-            <form id="registrationForm">
-                <div class="form-section">
-                    <h3>📋 المعلومات الشخصية</h3>
+    <!-- قسم الهيرو -->
+    <section class="hero" id="about">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text slide-in-left">
+                    <div class="hero-logo-container">
+                        <img src="https://d.top4top.io/p_3577z29101.png" alt="كرنفال جيل ألفا" class="logo-main">
+                    </div>
                     
-                    <div class="form-group">
-                        <label for="name" class="required">الاسم الكامل</label>
-                        <input type="text" id="name" name="name" required placeholder="أدخل اسمك الكامل">
+                    <p class="hero-subtitle">
+                        ثورة التعليم في عصر الذكاء الاصطناعي
+                        <br>
+                        <span class="highlight">١١ نوفمبر ٢٠٢٥ | مدرسة محمد بن سليمان الغافري</span>
+                    </p>
+
+                    <!-- العد التنازلي -->
+                    <div class="countdown">
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="days">00</div>
+                            <div class="countdown-label">أيام</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="hours">00</div>
+                            <div class="countdown-label">ساعات</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="minutes">00</div>
+                            <div class="countdown-label">دقائق</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="seconds">00</div>
+                            <div class="countdown-label">ثواني</div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="email" class="required">البريد الإلكتروني</label>
-                        <input type="email" id="email" name="email" required placeholder="example@email.com">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phone">رقم الهاتف</label>
-                        <input type="tel" id="phone" name="phone" placeholder="05XXXXXXXX">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="age">العمر</label>
-                        <input type="number" id="age" name="age" min="5" max="100" placeholder="أدخل عمرك">
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <h3>🎯 معلومات المشاركة</h3>
-
-                    <div class="form-group">
-                        <label for="category" class="required">الفئة</label>
-                        <select id="category" name="category" required>
-                            <option value="">اختر فئتك</option>
-                            <option value="طالب">طالب/ة (جيل ألفا)</option>
-                            <option value="ولي أمر">ولي أمر</option>
-                            <option value="معلم">معلم/ة</option>
-                            <option value="مطور">مطور/ة</option>
-                            <option value="مصمم">مصمم/ة</option>
-                            <option value="باحث">باحث/ة</option>
-                            <option value="شركة">ممثل شركة</option>
-                            <option value="مهتم">مهتم/ة بالتقنية</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="participationType" class="required">نوع المشاركة</label>
-                        <select id="participationType" name="participationType" required>
-                            <option value="">اختر نوع المشاركة</option>
-                            <option value="مشارك في الورش">مشارك في الورش</option>
-                            <option value="عرض مشروع تقني">عرض مشروع تقني</option>
-                            <option value="تقديم ورشة عمل">تقديم ورشة عمل</option>
-                            <option value="مساعد متطوع">مساعد متطوع</option>
-                            <option value="رعاية الحدث">رعاية الحدث</option>
-                            <option value="زائر">زائر/ة</option>
-                            <option value="متحدث">متحدث/ة</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group" id="workshopField" style="display: none;">
-                        <label for="workshopInterest">الورش المفضلة</label>
-                        <select id="workshopInterest" name="workshopInterest">
-                            <option value="">اختر الورشة المفضلة</option>
-                            <option value="الرياضيات الرقمية">الرياضيات الرقمية</option>
-                            <option value="علوم المستقبل">علوم المستقبل</option>
-                            <option value="الفنون الرقمية">الفنون الرقمية</option>
-                            <option value="عالم البرمجة">عالم البرمجة</option>
-                            <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
-                            <option value="الروبوتات">الروبوتات</option>
-                        </select>
+                    <div class="hero-buttons">
+                        <a href="#registration" class="cta-button">
+                            سجل في رحلة المستقبل
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        <a href="#about" class="secondary-button">
+                            اكتشف المزيد
+                            <i class="fas fa-compass"></i>
+                        </a>
                     </div>
                 </div>
-
-                <div class="form-section" id="projectSection" style="display: none;">
-                    <h3>💡 المشروع أو الفكرة</h3>
-
-                    <div class="form-group">
-                        <label for="projectName">اسم المشروع أو الفكرة</label>
-                        <input type="text" id="projectName" name="projectName" placeholder="اسم المشروع الذي تريد عرضه">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="projectDescription">وصف المشروع</label>
-                        <textarea id="projectDescription" name="projectDescription" rows="4" placeholder="صف فكرتك أو مشروعك التقني..."></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label>المهارات التقنية</label>
-                        <div class="skills-container">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="skillProgramming" name="skills" value="برمجة">
-                                <label for="skillProgramming">برمجة</label>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="skillDesign" name="skills" value="تصميم">
-                                <label for="skillDesign">تصميم</label>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="skillAI" name="skills" value="ذكاء اصطناعي">
-                                <label for="skillAI">ذكاء اصطناعي</label>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="skillRobotics" name="skills" value="روبوتات">
-                                <label for="skillRobotics">روبوتات</label>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="skill3D" name="skills" value="تصميم ثلاثي الأبعاد">
-                                <label for="skill3D">تصميم 3D</label>
-                            </div>
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="skillVR" name="skills" value="واقع افتراضي">
-                                <label for="skillVR">واقع افتراضي</label>
-                            </div>
+                <div class="hero-visual slide-in-right">
+                    <div class="logo-3d-container">
+                        <img src="https://d.top4top.io/p_3577z29101.png" alt="كرنفال جيل ألفا" class="logo-3d">
+                        <div class="floating-shapes">
+                            <div class="shape"></div>
+                            <div class="shape"></div>
+                            <div class="shape"></div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="form-section">
-                    <h3>📝 معلومات إضافية</h3>
+    <!-- شريط فاصل -->
+    <div class="custom-divider"></div>
 
-                    <div class="form-group">
-                        <label for="experience">الخبرة السابقة (اختياري)</label>
-                        <textarea id="experience" name="experience" rows="3" placeholder="شاركنا خبراتك السابقة في المجال التقني..."></textarea>
+    <!-- قسم الأجيال -->
+    <section class="section" id="generations">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-k">رحلة عبر الأجيال</div>
+                <h2 class="section-title">من هم <span class="text-gradient">جيل ألفا</span>؟</h2>
+                <p class="section-subtitle">استكشف تطور الأجيال من الصامت إلى ألفا، الجيل الرقمي الأكثر تطوراً في التاريخ البشري</p>
+            </div>
+
+            <div class="generations-grid">
+                <!-- الجيل الصامت -->
+                <div class="brand-card generation-card fade-in">
+                    <div class="generation-icon">👑</div>
+                    <h3 class="generation-name">الجيل الصامت</h3>
+                    <div class="generation-years">1928 - 1945</div>
+                    <p class="generation-desc">عاشوا فترة الحروب العالمية والكساد الاقتصادي، محافظون جداً ويقدسون النظام والانضباط</p>
+                </div>
+
+                <!-- جيل الطفرة -->
+                <div class="brand-card generation-card fade-in">
+                    <div class="generation-icon">🚀</div>
+                    <h3 class="generation-name">جيل الطفرة</h3>
+                    <div class="generation-years">1946 - 1964</div>
+                    <p class="generation-desc">ولدوا بعد الحرب العالمية الثانية في فترة نمو اقتصادي كبير وازدهار تقني</p>
+                </div>
+
+                <!-- جيل X -->
+                <div class="brand-card generation-card fade-in">
+                    <div class="generation-icon">💼</div>
+                    <h3 class="generation-name">جيل X</h3>
+                    <div class="generation-years">1965 - 1980</div>
+                    <p class="generation-desc">عاشوا الانتقال من العالم التقليدي إلى التكنولوجيا الحديثة والرقمنة</p>
+                </div>
+
+                <!-- جيل الألفية -->
+                <div class="brand-card generation-card fade-in">
+                    <div class="generation-icon">🌐</div>
+                    <h3 class="generation-name">جيل الألفية</h3>
+                    <div class="generation-years">1981 - 1996</div>
+                    <p class="generation-desc">أول جيل تربى على الإنترنت والهواتف المحمولة والتقنيات الرقمية المتقدمة</p>
+                </div>
+
+                <!-- جيل Z -->
+                <div class="brand-card generation-card fade-in">
+                    <div class="generation-icon">📱</div>
+                    <h3 class="generation-name">جيل Z</h3>
+                    <div class="generation-years">1997 - 2012</div>
+                    <p class="generation-desc">أول جيل رقمي بالكامل، سريعو التعلم ويعتمدون على المحتوى المرئي والتواصل الاجتماعي</p>
+                </div>
+
+                <!-- جيل ألفا -->
+                <div class="brand-card generation-card fade-in" style="border-color: var(--primary-blue); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,0.8));">
+                    <div class="generation-icon">🤖</div>
+                    <h3 class="generation-name">جيل ألفا</h3>
+                    <div class="generation-years">2013 - 2025</div>
+                    <p class="generation-desc">أول جيل يولد في عصر الذكاء الاصطناعي والمساعدات الذكية والتقنيات المتقدمة والواقع الافتراضي</p>
+                </div>
+            </div>
+
+            <!-- مميزات جيل ألفا -->
+            <div class="section-header" style="margin-top: 6rem;">
+                <div class="section-k">مميزات استثنائية</div>
+                <h2 class="section-title">لماذا <span class="text-gradient">جيل ألفا</span> مختلف؟</h2>
+                <p class="section-subtitle">اكتشف السمات الفريدة التي تميز جيل المستقبل وتجعله الأكثر تطوراً في التاريخ</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="brand-card feature-card fade-in">
+                    <div class="feature-icon-container">
+                        <i class="fas fa-robot feature-icon"></i>
                     </div>
-
-                    <div class="form-group">
-                        <label for="expectations">توقعاتك من الكرنفال</label>
-                        <textarea id="expectations" name="expectations" rows="2" placeholder="ما الذي تأمل تحقيقه من المشاركة؟"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="source">كيف سمعت عن الكرنفال؟</label>
-                        <select id="source" name="source">
-                            <option value="">اختر المصدر</option>
-                            <option value="وسائل التواصل">وسائل التواصل الاجتماعي</option>
-                            <option value="صديق">صديق/قريب</option>
-                            <option value="المدرسة">المدرسة</option>
-                            <option value="إعلان">إعلان</option>
-                            <option value="آخر">مصدر آخر</option>
-                        </select>
+                    <div class="feature-content">
+                        <h3>أبناء الذكاء الاصطناعي</h3>
+                        <p>أول جيل يولد ويتفاعل مع المساعدات الذكية والروبوتات منذ نعومة أظفارهم، مما يجعل التكنولوجيا جزءاً أساسياً من نموهم وتطورهم المعرفي</p>
                     </div>
                 </div>
 
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    🚀 تسجيل المشاركة
-                </button>
-            </form>
+                <div class="brand-card feature-card fade-in">
+                    <div class="feature-icon-container">
+                        <i class="fas fa-puzzle-piece feature-icon"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>التعلم باللعب</h3>
+                        <p>يفضلون التعلم بالتجربة والتفاعل بدلاً من التلقين التقليدي، مما يجعلهم أكثر إبداعاً وقدرة على حل المشكلات المعقدة</p>
+                    </div>
+                </div>
+
+                <div class="brand-card feature-card fade-in">
+                    <div class="feature-icon-container">
+                        <i class="fas fa-globe-americas feature-icon"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>مواطنون رقميون</h3>
+                        <p>يتعاملون مع العالم الرقمي كجزء طبيعي من حياتهم اليومية، مما يمنحهم مهارات رقمية متقدمة بشكل فطري وحدسي</p>
+                    </div>
+                </div>
+
+                <div class="brand-card feature-card fade-in">
+                    <div class="feature-icon-container">
+                        <i class="fas fa-graduation-cap feature-icon"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>الأكثر تعليماً</h3>
+                        <p>من المتوقع أن يكونوا أكثر جيل متعلم في التاريخ البشري بفضل توفر المصادر التعليمية المتقدمة والرقمية والتفاعلية</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- قسم الورش -->
+    <section class="section" id="workshops" style="background: linear-gradient(135deg, rgba(0,168,232,0.03), rgba(255,209,102,0.02));">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-k">رحلة التعلم</div>
+                <h2 class="section-title">الورش <span class="text-gradient">التفاعلية</span></h2>
+                <p class="section-subtitle">استكشف عالم الورش المصممة خصيصاً لجيل ألفا بتقنيات المستقبل والتعلم التجريبي التفاعلي</p>
+            </div>
+
+            <div class="workshops-grid">
+                <!-- الرياضيات الرقمية -->
+                <div class="brand-card fade-in">
+                    <div class="workshop-icon">🔢</div>
+                    <h3 class="workshop-title">الرياضيات الرقمية</h3>
+                    <p class="workshop-desc">استكشف عالم الرياضيات بتقنيات الواقع المعزز والبرمجة التفاعلية التي تناسب عقلية جيل ألفا الإبداعية</p>
+                    <ul class="workshop-features">
+                        <li>تطبيقات Khan Academy Kids التفاعلية</li>
+                        <li>الواقع المعزز مع GeoGebra AR المتقدم</li>
+                        <li>برمجة حسابية إبداعية عبر Scratch Junior</li>
+                        <li>ألغاز QR Code التفاعلية والتعليمية</li>
+                    </ul>
+                </div>
+
+                <!-- علوم المستقبل -->
+                <div class="brand-card fade-in">
+                    <div class="workshop-icon">🧪</div>
+                    <h3 class="workshop-title">علوم المستقبل</h3>
+                    <p class="workshop-desc">اغوص في عالم العلوم بتجارب الواقع الافتراضي والروبوتات المتقدمة التي تحفز الفضول العلمي والاكتشاف</p>
+                    <ul class="workshop-features">
+                        <li>مختبرات Mel Science VR المتطورة</li>
+                        <li>تشريح افتراضي تفاعلي للجسم البشري</li>
+                        <li>تجارب برمجة STEM الإبداعية</li>
+                        <li>محاكاة الظواهر العلمية المعقدة</li>
+                    </ul>
+                </div>
+
+                <!-- الفنون الرقمية -->
+                <div class="brand-card fade-in">
+                    <div class="workshop-icon">🎨</div>
+                    <h3 class="workshop-title">الفنون الرقمية</h3>
+                    <p class="workshop-desc">أطلق العنان لإبداعك بأحدث أدوات التصميم الرقمي والتقنيات البصرية المتقدمة والتفاعلية</p>
+                    <ul class="workshop-features">
+                        <li>الرسم الرقمي بتطبيق Procreate المتقدم</li>
+                        <li>معارض الواقع المعزز التفاعلية</li>
+                        <li>تصميم البيكسل آرت والإبداع الرقمي</li>
+                        <li>جولات افتراضية في المتاحف العالمية</li>
+                    </ul>
+                </div>
+
+                <!-- عالم البرمجة -->
+                <div class="brand-card fade-in">
+                    <div class="workshop-icon">💻</div>
+                    <h3 class="workshop-title">عالم البرمجة</h3>
+                    <p class="workshop-desc">ادخل إلى عالم المبرمجين الصغار وتعلم لغة المستقبل بطريقة تفاعلية وممتعة وإبداعية</p>
+                    <ul class="workshop-features">
+                        <li>برمجة القصص التفاعلية والإبداعية</li>
+                        <li>تحديات الروبوتات والذكاء الاصطناعي</li>
+                        <li>مقدمة في الذكاء الاصطناعي والتعلم الآلي</li>
+                        <li>تصميم ثلاثي الأبعاد والطباعة الرقمية</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الحجز -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <h2>كن جزءاً من <span style="font-weight: 800;">ثورة التعليم</span></h2>
+            <p>انضم إلى رحلة استثنائية تلبي احتياجات جيل المستقبل وتعدهم لعالم الغد المليء بالتحديات والفرص</p>
+            <a href="#registration" class="cta-large">
+                سجل الآن في كرنفال جيل ألفا
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="https://d.top4top.io/p_3577z29101.png" alt="كرنفال جيل ألفا">
+                </div>
+                <div class="footer-school">مدرسة محمد بن سليمان الغافري</div>
+                <div class="footer-motto">المستقبل يبدأ من هنا - حيث يلتقي الإبداع بالتكنولوجيا والابتكار بالتعلم</div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i> تويتر</a>
+                    <a href="#"><i class="fab fa-instagram"></i> انستغرام</a>
+                    <a href="#"><i class="fab fa-youtube"></i> يوتيوب</a>
+                    <a href="#"><i class="fab fa-tiktok"></i> تيك توك</a>
+                </div>
+                <div class="copyright">© 2025 كرنفال جيل ألفا. جميع الحقوق محفوظة | تصميم يعكس روح جيل المستقبل والإبداع التقني</div>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        // رابط الويب أب الخاص بك
-        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwm7X8G7QjnwJlUXVfbdFEDK7hQ74xfj8-rWQV_xVyx9oYhn3_ChRqqmLFgJsraCqolEA/exec';
+        // العد التنازلي
+        function updateCountdown() {
+            const eventDate = new Date('2025-11-11').getTime();
+            const now = new Date().getTime();
+            const distance = eventDate - now;
 
-        // عناصر DOM
-        const form = document.getElementById('registrationForm');
-        const successMessage = document.getElementById('successMessage');
-        const errorMessage = document.getElementById('errorMessage');
-        const loadingMessage = document.getElementById('loadingMessage');
-        const submitBtn = document.getElementById('submitBtn');
-        const projectSection = document.getElementById('projectSection');
-        const workshopField = document.getElementById('workshopField');
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // إظهار/إخفاء الحقول بناءً على نوع المشاركة
-        document.getElementById('participationType').addEventListener('change', function() {
-            const participationType = this.value;
-            
-            if (participationType === 'عرض مشروع تقني' || participationType === 'تقديم ورشة عمل') {
-                projectSection.style.display = 'block';
-                workshopField.style.display = 'none';
-            } else if (participationType === 'مشارك في الورش') {
-                projectSection.style.display = 'none';
-                workshopField.style.display = 'block';
-            } else {
-                projectSection.style.display = 'none';
-                workshopField.style.display = 'none';
-            }
-        });
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
 
-        // معالجة نموذج التسجيل
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            // إظهار رسالة التحميل وتعطيل الزر
-            showLoading();
-            
-            // جمع البيانات من النموذج
-            const formData = new FormData(form);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                age: formData.get('age'),
-                category: formData.get('category'),
-                participationType: formData.get('participationType'),
-                workshopInterest: formData.get('workshopInterest'),
-                projectName: formData.get('projectName'),
-                projectDescription: formData.get('projectDescription'),
-                experience: formData.get('experience'),
-                expectations: formData.get('expectations'),
-                source: formData.get('source')
-            };
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
 
-            // جمع المهارات المختارة
-            const skills = [];
-            document.querySelectorAll('input[name="skills"]:checked').forEach(checkbox => {
-                skills.push(checkbox.value);
-            });
-            data.skills = skills.join(', ');
+        // تأثيرات التمرير
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-            try {
-                // إرسال البيانات إلى Google Apps Script
-                const response = await fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                const result = await response.json();
-                console.log('Response:', result);
-                
-                if (result.success) {
-                    showSuccess();
-                    form.reset();
-                    // إعادة تعيين الحقول المخفية
-                    projectSection.style.display = 'none';
-                    workshopField.style.display = 'none';
-                } else {
-                    throw new Error(result.message);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
-                
-            } catch (error) {
-                console.error('Error:', error);
-                showError();
-            } finally {
-                hideLoading();
-            }
+            });
+        }, observerOptions);
+
+        // تطبيق المراقبة على العناصر
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            observer.observe(el);
         });
 
-        // دوال التحكم في الرسائل
-        function showLoading() {
-            loadingMessage.style.display = 'block';
-            successMessage.style.display = 'none';
-            errorMessage.style.display = 'none';
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '⏳ جاري الإرسال...';
-        }
+        // تهيئة GSAP للحركات المتقدمة
+        gsap.registerPlugin(ScrollTrigger);
 
-        function hideLoading() {
-            loadingMessage.style.display = 'none';
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '🚀 تسجيل المشاركة';
-        }
+        // حركات متقدمة للعناصر
+        gsap.utils.toArray('.brand-card').forEach((card, index) => {
+            gsap.fromTo(card, 
+                { y: 60, opacity: 0, rotationY: 10 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    rotationY: 0,
+                    duration: 1,
+                    delay: index * 0.15,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        end: "bottom 20%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
 
-        function showSuccess() {
-            successMessage.style.display = 'block';
-            errorMessage.style.display = 'none';
-            
-            // إخفاء رسالة النجاح بعد 8 ثواني
-            setTimeout(() => {
-                successMessage.style.display = 'none';
-            }, 8000);
-        }
+        // تأثيرات إضافية للشعار
+        gsap.to('.logo-main', {
+            y: -10,
+            duration: 2,
+            repeat: -1,
+            yoyo: true,
+            ease: "power1.inOut"
+        });
 
-        function showError() {
-            errorMessage.style.display = 'block';
-            successMessage.style.display = 'none';
-        }
-
-        // تحسين تجربة المستخدم على الجوال
-        document.addEventListener('DOMContentLoaded', function() {
-            // إضافة تأثيرات للتركيز على الحقول
-            const inputs = document.querySelectorAll('input, select, textarea');
-            inputs.forEach(input => {
-                input.addEventListener('focus', function() {
-                    this.parentElement.style.transform = 'translateY(-2px)';
-                });
-                
-                input.addEventListener('blur', function() {
-                    this.parentElement.style.transform = 'translateY(0)';
-                });
-            });
+        // تأثيرات للأشكال العائمة
+        gsap.to('.shape', {
+            rotation: 360,
+            duration: 8,
+            repeat: -1,
+            ease: "none"
         });
     </script>
 </body>
